@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Hello WebXR</title>
+</head>
+<body>
+<h2>Hello WebXR</h2>
+<p id="status">Hello WebXR</p>
+<div>
+  <div class="inputoutput">
+    <img id="imageSrc" alt="No Image" />
+    <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
+  </div>
+  <div class="inputoutput">
+    <canvas id="canvasOutput"></canvas>
+    <div class="caption">canvasOutput</div>
+    
+    <button type="button" onclick="debugButton();">test</button>
+  </div>
+</div>
+<script type="text/javascript">
+  function debugButton(){
+    checkForXR();
+  }
+
+  function checkForXR() {
+  navigator.xr.requestDevice().then(device => {
+    onXRAvailable(device);
+  }, err => {
+    if (err.name === 'NotFoundError') {
+      // No XRDevices available.
+      console.error('No XR devices available:', err);
+    } else {
+      // An error occurred while requesting an XRDevice.
+      console.error('Requesting XR device failed:', err);
+    }
+  });
+}
+
+function onXRAvailable(device){
+  xrDevice = device;
+  console.log(device);
+}
+
+</script>
+</body>
+</html>
